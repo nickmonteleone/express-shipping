@@ -9,7 +9,13 @@ const MOCKED_SHIP_ID = 9999;
 test("shipProduct", async function () {
   fetchMock.post(SHIPIT_SHIP_URL, {
     body: {
-      receipt: { shipId: MOCKED_SHIP_ID }
+      receipt: {
+        itemId: 1234,
+        name: "test",
+        addr: "test addr",
+        zip: "test zip",
+        shipId: MOCKED_SHIP_ID
+      }
     },
     status: 200
   });
