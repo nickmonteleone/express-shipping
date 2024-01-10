@@ -5,6 +5,7 @@ const { shipProduct, SHIPIT_SHIP_URL } = require("./shipItApi");
 
 const MOCKED_SHIP_ID = 9999;
 
+
 test("shipProduct", async function () {
   fetchMock.post(SHIPIT_SHIP_URL, {
     body: {
@@ -12,6 +13,7 @@ test("shipProduct", async function () {
     },
     status: 200
   });
+
   const shipId = await shipProduct({
     productId: 1000,
     name: "Test Tester",
