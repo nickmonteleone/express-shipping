@@ -12,7 +12,7 @@ describe("POST /", function () {
       addr: "100 Test St",
       zip: "12345-6789",
     });
-
+    expect(resp.statusCode).toEqual(200);
     expect(resp.body).toEqual({ shipped: expect.any(Number) });
   });
 
@@ -59,7 +59,48 @@ describe("POST /", function () {
   });
 
   test("throws errors for fields not included in input", async function () {
+    const resp = await request(app).post("/shipments").send({});
 
+    expect(resp.statusCode).toEqual(400);
+    expect(resp.body).toEqual(
+      {
+        "error": {
+          "message": [
+            "instance requires property \"productId\"",
+            "instance requires property \"name\"",
+            "instance requires property \"addr\"",
+            "instance requires property \"zip\""
+          ],
+          "status": 400
+        }
+      }
+    );
+  });
+
+  test("throws error for empty string inputs", async function () {
+    const resp = await request(app).post("/shipments").send(
+      {
+        "productId": 12345,
+        "name": "",
+        "addr": "",
+        "zip": ""
+      }
+    );
+
+    expect(resp.statusCode).toEqual(400);
+    expect(resp.body).toEqual(
+      {
+        "error": {
+          "message": [
+            "instance.name does not meet minimum length of 1",
+            "instance.addr does not meet minimum length of 1",
+            "instance.zip does not meet minimum length of 1"
+          ],
+          "status": 400
+        }
+      }
+    )
   })
+
 
 });

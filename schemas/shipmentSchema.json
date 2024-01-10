@@ -9,9 +9,18 @@
             "type": "integer",
             "minimum": 1000
         },
-        "name": {"type": "string"},
-        "addr": {"type": "string"},
-        "zip": {"type": "string"}
+        "name": {
+            "type": "string",
+            "minLength": 1
+        },
+        "addr": {
+            "type": "string",
+            "minLength": 1
+        },
+        "zip": {
+            "type": "string",
+            "minLength": 1
+        }
     },
     "additionalProperties": false,
     "required": [
