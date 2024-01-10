@@ -17,12 +17,13 @@ const { shipProduct } = require("../shipItApi");
  */
 
 router.post("/", async function (req, res, next) {
-
-  console.log('req body', req.body)
+  console.log('req body', req.body);
   const validationResult = jsonschema.validate(
-    req.body, shipmentSchema, {required: true}
+    req.body,
+    shipmentSchema,
+    {required: true}
   );
-  console.log('validationResult', validationResult)
+  console.log('validationResult', validationResult);
 
   if (!validationResult.valid) {
     const errs = validationResult.errors.map(err => err.stack);

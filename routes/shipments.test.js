@@ -2,18 +2,32 @@
 
 const request = require("supertest");
 const app = require("../app");
+const fetchMock = require("fetch-mock");
+const { SHIPIT_SHIP_URL } = require("../shipItApi")
 
 
 describe("POST /", function () {
+
+
+
+
   test("valid", async function () {
+    fetchMock.post(`${SHIPIT_SHIP_URL}`, {
+      body: {
+        shipped: 9726
+      },
+      status: 200
+    });
+
     const resp = await request(app).post("/shipments").send({
       productId: 1000,
       name: "Test Tester",
       addr: "100 Test St",
       zip: "12345-6789",
     });
+
     expect(resp.statusCode).toEqual(200);
-    expect(resp.body).toEqual({ shipped: expect.any(Number) });
+    expect(resp.body).toEqual({ shipped: 9726 });
   });
 
   test("throws error if empty request body", async function () {
