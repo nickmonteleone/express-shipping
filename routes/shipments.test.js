@@ -1,20 +1,17 @@
 "use strict";
 
+const shipItApi = require("../shipItApi");
+shipItApi.shipProduct = jest.fn();
+
 const request = require("supertest");
 const app = require("../app");
-const fetchMock = require("fetch-mock");
-const { SHIPIT_SHIP_URL } = require("../shipItApi")
 
 const MOCKED_SHIP_ID = 9999;
 
+
 describe("POST /", function () {
 
-  fetchMock.post(SHIPIT_SHIP_URL, {
-    body: {
-      receipt: { shipId: MOCKED_SHIP_ID }
-    },
-    status: 200
-  });
+  shipItApi.shipProduct.mockReturnValue(MOCKED_SHIP_ID);
 
   test("valid", async function () {
     const resp = await request(app).post("/shipments").send({
