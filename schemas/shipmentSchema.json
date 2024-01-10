@@ -1,0 +1,23 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "http://victorandnick.com/express-shipping-exercise-shipments.json",
+    "title": "Shipment",
+    "description": "Shipment request to be made to ShipIt API",
+    "type": "object",
+    "properties": {
+        "productId": {
+            "type": "integer",
+            "minimum": 1000
+        },
+        "name": {"type": "string"},
+        "addr": {"type": "string"},
+        "zip": {"type": "string"}
+    },
+    "additionalProperties": false,
+    "required": [
+        "productId",
+        "name",
+        "addr",
+        "zip"
+    ]
+}
